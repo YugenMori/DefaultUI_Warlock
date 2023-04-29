@@ -1,0 +1,51 @@
+## Interface: 100100
+## Title: DefaultUI_Warlock
+## Version: 1.0.1_Dragonflight_Classic
+## Author: Yugen
+## Notes-deDE: Minimalistische Benutzeroberfläche für World of Warcraft
+## Notes-enGB: Minimalist UI for World of Warcraft
+## Notes-enUS: Minimalist UI for World of Warcraft
+## Notes-esES: Interfaz de usuario minimalista para World of Warcraft
+## Notes-esMX: Interfaz de usuario minimalista para World of Warcraft
+## Notes-frFR: Interface utilisateur minimaliste pour World of Warcraft
+## Notes-itIT: Interfaccia utente minimalista per World of Warcraft
+## Notes-koKR: 월드 오브 워크래프트 용 미니멀리스트 UI
+## Notes-ptBR: Interface minimalista para World of Warcraft
+## Notes-ruRU: Минималистичный интерфейс для World of Warcraft
+## Notes-zhCN: 魔兽世界的简约UI
+## Notes-zhTW: 魔獸世界的簡約UI
+## SavedVariables: AbyssuiDB
+## SavedVariablesPerCharacter: AbyssUIProfile, AbyssUIAddonSettings, COLOR_MY_UI
+## OptionalDeps: AbyssUI_TexturePack, Ace3
+
+# Wow Versions: Classic - 11403 | LichKingClassic - 30401 | DragonFlight - 100100
+
+# Libs
+libs\LibStub\LibStub.lua
+# libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+# libs\AceGUI-3.0\AceGUI-3.0.xml
+libs\AceLocale-3.0\AceLocale-3.0.xml
+# libs\AceEvent-3.0\AceEvent-3.0.xml
+# libs\AceAddon-3.0\AceAddon-3.0.xml
+# libs\AceConfig-3.0\AceConfig-3.0.xml
+# libs\AceConsole-3.0\AceConsole-3.0.xml
+# libs\AceDB-3.0\AceDB-3.0.xml
+# libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+# libs\AceHook-3.0\AceHook-3.0.xml
+
+# Localization
+localization\deDE.lua
+localization\enGB.lua
+localization\enUS.lua
+localization\esES.lua
+localization\esMX.lua
+localization\frFR.lua
+localization\itIT.lua
+localization\koKR.lua
+localization\ptBR.lua
+localization\ruRU.lua
+localization\zhCN.lua
+localization\zhTW.lua
+
+# DefaultUI_Warlock
+DefaultUI_Warlock.lua
