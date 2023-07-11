@@ -1,6 +1,6 @@
-## Interface: 100100
+## Interface: 100105
 ## Title: DefaultUI_Warlock
-## Version: 1.0.3_Dragonflight_Classic
+## Version: 10.1.5.1_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-deDE: Minimalistische Benutzeroberfläche für World of Warcraft
 ## Notes-enGB: Minimalist UI for World of Warcraft
@@ -18,7 +18,7 @@
 ## SavedVariablesPerCharacter: AbyssUIProfile, AbyssUIAddonSettings, COLOR_MY_UI
 ## OptionalDeps: AbyssUI_TexturePack, Ace3
 
-# Wow Versions: Classic - 11403 | LichKingClassic - 30401 | DragonFlight - 100100
+# Wow Versions: Classic - 11404 | LichKingClassic - 30402 | DragonFlight - 100105
 
 # Libs
 libs\LibStub\LibStub.lua

@@ -361,6 +361,30 @@ SetAlphaFrames:SetScript("OnEvent", function(self, event, addon)
 			return nil
 		end
 end)
+-- SupportedAddons
+--[[
+local BagnonSupport = CreateFrame("Frame")
+BagnonSupport:RegisterEvent("ADDON_LOADED")
+BagnonSupport:SetScript("OnEvent", function(self, event, addon)
+	if (addon == "Bagnon") then
+		for i, v in pairs({
+			BagnonInventoryFrame1.BottomEdge,
+			BagnonInventoryFrame1.RightEdge,
+			BagnonInventoryFrame1.LeftEdge,
+			BagnonInventoryFrame1.TopEdge,
+			BagnonInventoryFrame1.BottomEdge,
+			BagnonInventoryFrame1.PortraitFrame,
+			BagnonInventoryFrame1.TopRightCorner,
+			BagnonInventoryFrame1.TopLeftCorner,
+			BagnonInventoryFrame1.BottomLeftCorner,
+			BagnonInventoryFrame1.BottomRightCorner,
+			BagnonInventoryFrame1.Center,
+		}) do
+			AbyssUI_ColorizationFrameFunction(v)
+		end
+	end
+end)
+--]]
 -- New Interface
 local NewFrames = CreateFrame("Frame")
 NewFrames:RegisterEvent("ADDON_LOADED")
@@ -1485,7 +1509,7 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				DropDownList2Backdrop.TopRightCorner,
 				DropDownList2Backdrop.TopLeftCorner,
 				DropDownList2Backdrop.BottomLeftCorner,
-			DropDownList2Backdrop.BottomRightCorner, }) do
+				DropDownList2Backdrop.BottomRightCorner, }) do
 				if AbyssUIAddonSettings ~= nil then
 					AbyssUI_ColorizationFrameFunction(v)
 				else
@@ -1696,6 +1720,7 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				end
 			end
 			-- LootHistoryFrame
+			--[[
 			for i, v in pairs({
 				LootHistoryFrame.Divider,
 				LootHistoryFrame.BorderRight,
@@ -1711,6 +1736,7 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 					return nil
 				end
 			end
+			--]]
 			-- ModelPreviewFrame
 			for i, v in pairs({
 				ModelPreviewFrame.NineSlice.TopEdge,
@@ -3120,6 +3146,1151 @@ f:SetScript("OnEvent", function(self, event, name)
     end
 	end
 end)
+--------------------------------------------------------------
+-- UnitColor
+local UnitColor
+local function UnitColor(unit)
+  if (AbyssUIAddonSettings.UnitFrameImproved == true) then
+    local r, g, b, a
+    if ((not UnitIsPlayer(unit)) and ((not UnitIsConnected(unit)) or (UnitIsDeadOrGhost(unit)))) then
+      --Color it gray
+      r, g, b, a = 0.5, 0.5, 0.5, 1
+    elseif (UnitIsPlayer(unit)) then
+      --Try to color it by class.
+      local localizedClass, englishClass = UnitClass(unit)
+      local classColor = RAID_CLASS_COLORS[englishClass]
+      if (classColor and not AbyssUIAddonSettings.GreenHealth) then
+        r, g, b, a = classColor.r, classColor.g, classColor.b, classColor.a
+      else
+        if (UnitIsFriend("player", unit)) then
+          r, g, b, a = 0.0, 1.0, 0.0, 1
+        else
+          r, g, b, a = 1.0, 0.0, 0.0, 1
+        end
+      end
+    else
+      r, g, b, a = UnitSelectionColor(unit)
+    end
+    return r, g, b, a
+  end
+end
+---------------------------- Classic Frames ----------------------------------
+local ClassicFrames = CreateFrame("Frame")
+ClassicFrames:RegisterEvent("ADDON_LOADED")
+ClassicFrames:SetScript("OnEvent", function(self, event, addon)
+	if (addon == "DefaultUI_Warlock") then
+		if GetWoWVersion <= 30600 then
+			-- General
+			for i, v in pairs({ 
+				MiniMapTrackingBorder,
+				GameTimeTexture,
+				MainMenuXPBarTexture0,
+				MainMenuXPBarTexture1,
+				MainMenuXPBarTexture2,
+				MainMenuXPBarTexture3,
+				ReputationWatchBar.StatusBar.WatchBarTexture0,
+				ReputationWatchBar.StatusBar.WatchBarTexture1,
+				ReputationWatchBar.StatusBar.WatchBarTexture2,
+				ReputationWatchBar.StatusBar.WatchBarTexture3,
+				ChatFrame1EditBoxLeft,
+				ChatFrame1EditBoxMid,
+				ChatFrame1EditBoxRight,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			--GameMenuFrame
+			for i, v in pairs({ 
+				GameMenuFrame.BottomEdge,
+				GameMenuFrame.BottomLeftCorner,
+				GameMenuFrame.BottomRightCorner,
+				GameMenuFrame.Center,
+				GameMenuFrame.LeftEdge,
+				GameMenuFrame.RightEdge,
+				GameMenuFrame.TopLeftCorner,
+				GameMenuFrame.TopRightCorner,
+				GameMenuFrameHeader,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					if GetWoWVersion > 10000 then
+						AbyssUI_ColorizationFrameFunction(v)
+					end
+				end
+			end
+			-- HelpFrame
+			for i, v in pairs({ 
+				HelpFrameTopBorder,
+				HelpFrameTopLeftCorner,
+				HelpFrameTopRightCorner,
+				HelpFrameBotLeftCorner,
+				HelpFrameBotRightCorner,
+				HelpFrameLeftBorder,
+				HelpFrameRightBorder,
+				HelpFrameBottomBorder,
+				HelpFrameBtnCornerLeft,
+				HelpFrameBtnCornerRight,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- InterfaceOptionsFrame
+			for i, v in pairs({ 
+				InterfaceOptionsFrame.BottomEdge,
+				InterfaceOptionsFrame.BottomLeftCorner,
+				InterfaceOptionsFrame.BottomRightCorner,
+				InterfaceOptionsFrame.Center,
+				InterfaceOptionsFrame.LeftEdge,
+				InterfaceOptionsFrame.RightEdge,
+				InterfaceOptionsFrame.TopEdge,
+				InterfaceOptionsFrame.TopLeftCorner,
+				InterfaceOptionsFrame.TopRightCorner,
+				InterfaceOptionsFrameHeader,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- VideoOptionsFrame
+			for i, v in pairs({ 
+				VideoOptionsFrame.BottomEdge,
+				VideoOptionsFrame.BottomLeftCorner,
+				VideoOptionsFrame.BottomRightCorner,
+				VideoOptionsFrame.Center,
+				VideoOptionsFrame.LeftEdge,
+				VideoOptionsFrame.RightEdge,
+				VideoOptionsFrame.TopEdge,
+				VideoOptionsFrame.TopLeftCorner,
+				VideoOptionsFrame.TopRightCorner,
+				VideoOptionsFrameHeader,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- AddonList
+			for i, v in pairs({ 
+				AddonListTopBorder,
+				AddonListTopLeftCorner,
+				AddonListTopRightCorner,
+				AddonListBotLeftCorner,
+				AddonListBotRightCorner,
+				AddonListLeftBorder,
+				AddonListRightBorder,
+				AddonListBottomBorder,
+				AddonListButtonBottomBorder,
+				AddonListBtnCornerLeft,
+				AddonListBtnCornerRight,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- ContainerFrame1
+			for i, v in pairs({ 
+				ContainerFrame1Background1Slot,
+				ContainerFrame1BackgroundBottom,
+				ContainerFrame1BackgroundMiddle1,
+				ContainerFrame1BackgroundMiddle2,
+				ContainerFrame1BackgroundTop,
+				ContainerFrame1BackgroundPortrait,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- ContainerFrame2
+			for i, v in pairs({ 
+				ContainerFrame2Background1Slot,
+				ContainerFrame2BackgroundBottom,
+				ContainerFrame2BackgroundMiddle1,
+				ContainerFrame2BackgroundMiddle2,
+				ContainerFrame2BackgroundTop,
+				ContainerFrame2BackgroundPortrait,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- ContainerFrame3
+			for i, v in pairs({ 
+				ContainerFrame3Background1Slot,
+				ContainerFrame3BackgroundBottom,
+				ContainerFrame3BackgroundMiddle1,
+				ContainerFrame3BackgroundMiddle2,
+				ContainerFrame3BackgroundTop,
+				ContainerFrame3BackgroundPortrait,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- ContainerFrame4
+			for i, v in pairs({ 
+				ContainerFrame4Background1Slot,
+				ContainerFrame4BackgroundBottom,
+				ContainerFrame4BackgroundMiddle1,
+				ContainerFrame4BackgroundMiddle2,
+				ContainerFrame4BackgroundTop,
+				ContainerFrame4BackgroundPortrait,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- ContainerFrame5
+			for i, v in pairs({ 
+				ContainerFrame5Background1Slot,
+				ContainerFrame5BackgroundBottom,
+				ContainerFrame5BackgroundMiddle1,
+				ContainerFrame5BackgroundMiddle2,
+				ContainerFrame5BackgroundTop,
+				ContainerFrame5BackgroundPortrait,
+		 	 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- StaticPopUp ("LogoutFrame")
+			for i, v in pairs({	
+				StaticPopup1.BottomEdge,
+				StaticPopup1.BottomLeftCorner,
+				StaticPopup1.BottomRightCorner,
+				StaticPopup1.Center,
+				StaticPopup1.LeftEdge,
+				StaticPopup1.RightEdge,
+				StaticPopup1.TopEdge,
+				StaticPopup1.TopLeftCorner,
+				StaticPopup1.TopRightCorner,
+				StaticPopup2.BottomEdge,
+				StaticPopup2.BottomLeftCorner,
+				StaticPopup2.BottomRightCorner,
+				StaticPopup2.Center,
+				StaticPopup2.LeftEdge,
+				StaticPopup2.RightEdge,
+				StaticPopup2.TopEdge,
+				StaticPopup2.TopLeftCorner,
+				StaticPopup2.TopRightCorner,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					if (not InCombatLockdown()) then
+						AbyssUI_ColorizationFrameFunction(v)
+					end
+				end
+			end
+			-- FriendsFrame
+			for i, v in pairs({ 
+				FriendsFrameTopBorder,
+				FriendsFrameTopLeftCorner,
+				FriendsFrameTopRightCorner,
+				FriendsFrameBotLeftCorner,
+				FriendsFrameBotRightCorner,
+				FriendsFrameLeftBorder,
+				FriendsFrameRightBorder,
+				FriendsFrameBottomBorder,
+				FriendsFrameButtonBottomBorder,
+				FriendsFrameBtnCornerLeft,
+				FriendsFrameBtnCornerRight,
+				FriendsFramePortraitFrame,
+				FriendsFrameTab1Left,
+				FriendsFrameTab1LeftDisabled,
+				FriendsFrameTab1Middle,
+				FriendsFrameTab1MiddleDisabled,
+				FriendsFrameTab1Right,
+				FriendsFrameTab1RightDisabled,
+				FriendsFrameTab2Left,
+				FriendsFrameTab2LeftDisabled,
+				FriendsFrameTab2Middle,
+				FriendsFrameTab2MiddleDisabled,
+				FriendsFrameTab2Right,
+				FriendsFrameTab2RightDisabled,
+				FriendsFrameTab3Left,
+				FriendsFrameTab3LeftDisabled,
+				FriendsFrameTab3Middle,
+				FriendsFrameTab3MiddleDisabled,
+				FriendsFrameTab3Right,
+				FriendsFrameTab3RightDisabled,
+				FriendsFrameTab4Left,
+				FriendsFrameTab4LeftDisabled,
+				FriendsFrameTab4Middle,
+				FriendsFrameTab4MiddleDisabled,
+				FriendsFrameTab4Right,
+				FriendsFrameTab4RightDisabled,
+				FriendsFrameBattlenetFrame.BroadcastFrame.BottomEdge,
+				FriendsFrameBattlenetFrame.BroadcastFrame.BottomLeftCorner,
+				FriendsFrameBattlenetFrame.BroadcastFrame.BottomRightCorner,
+				FriendsFrameBattlenetFrame.BroadcastFrame.Center,
+				FriendsFrameBattlenetFrame.BroadcastFrame.LeftEdge,
+				FriendsFrameBattlenetFrame.BroadcastFrame.RightEdge,
+				FriendsFrameBattlenetFrame.BroadcastFrame.TopEdge,
+				FriendsFrameBattlenetFrame.BroadcastFrame.TopLeftCorner,
+				FriendsFrameBattlenetFrame.BroadcastFrame.TopRightCorner,
+				DropDownList1Backdrop.BottomEdge,
+				DropDownList1Backdrop.BottomLeftCorner,
+				DropDownList1Backdrop.BottomRightCorner,
+				DropDownList1Backdrop.Center,
+				DropDownList1Backdrop.LeftEdge,
+				DropDownList1Backdrop.RightEdge,
+				DropDownList1Backdrop.TopEdge,
+				DropDownList1Backdrop.TopLeftCorner,
+				DropDownList1Backdrop.TopRightCorner,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- MerchantFrame
+			for i, v in pairs({ 
+				MerchantFrameTopBorder,
+				MerchantFrameTopLeftCorner,
+				MerchantFrameTopRightCorner,
+				MerchantFrameBotLeftCorner,
+				MerchantFrameBotRightCorner,
+				MerchantFrameLeftBorder,
+				MerchantFrameRightBorder,
+				MerchantFrameBottomBorder,
+				MerchantFrameButtonBottomBorder,
+				MerchantFrameBtnCornerLeft,
+				MerchantFrameBtnCornerRight,
+				MerchantFramePortraitFrame,
+				MerchantFrameTab1Left,
+				MerchantFrameTab1LeftDisabled,
+				MerchantFrameTab1Middle,
+				MerchantFrameTab1MiddleDisabled,
+				MerchantFrameTab1Right,
+				MerchantFrameTab1RightDisabled,
+				MerchantFrameTab2Left,
+				MerchantFrameTab2LeftDisabled,
+				MerchantFrameTab2Middle,
+				MerchantFrameTab2MiddleDisabled,
+				MerchantFrameTab2Right,
+				MerchantFrameTab2RightDisabled,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- CharacterFrame
+			for i, v in pairs({
+				CharacterFrameTab1Left,
+				CharacterFrameTab1LeftDisabled,
+				CharacterFrameTab1Middle,
+				CharacterFrameTab1MiddleDisabled,
+				CharacterFrameTab1Right,
+				CharacterFrameTab1RightDisabled,
+				CharacterFrameTab2Left,
+				CharacterFrameTab2LeftDisabled,
+				CharacterFrameTab2Middle,
+				CharacterFrameTab2MiddleDisabled,
+				CharacterFrameTab2Right,
+				CharacterFrameTab2RightDisabled,
+				CharacterFrameTab3Left,
+				CharacterFrameTab3LeftDisabled,
+				CharacterFrameTab3Middle,
+				CharacterFrameTab3MiddleDisabled,
+				CharacterFrameTab3Right,
+				CharacterFrameTab3RightDisabled,
+				CharacterFrameTab4Left,
+				CharacterFrameTab4LeftDisabled,
+				CharacterFrameTab4Middle,
+				CharacterFrameTab4MiddleDisabled,
+				CharacterFrameTab4Right,
+				CharacterFrameTab4RightDisabled,
+				CharacterFrameTab5Left,
+				CharacterFrameTab5LeftDisabled,
+				CharacterFrameTab5Middle,
+				CharacterFrameTab5MiddleDisabled,
+				CharacterFrameTab5Right,
+				CharacterFrameTab5RightDisabled,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- MailFrame
+			for i, v in pairs({ 
+				MailFrameTopBorder,
+				MailFrameTopLeftCorner,
+				MailFrameTopRightCorner,
+				MailFrameBotLeftCorner,
+				MailFrameBotRightCorner,
+				MailFrameLeftBorder,
+				MailFrameRightBorder,
+				MailFrameBottomBorder,
+				MailFrameButtonBottomBorder,
+				MailFrameBtnCornerLeft,
+				MailFrameBtnCornerRight,
+				MailFramePortraitFrame,
+				MailFrameTab1Left,
+				MailFrameTab1LeftDisabled,
+				MailFrameTab1Middle,
+				MailFrameTab1MiddleDisabled,
+				MailFrameTab1Right,
+				MailFrameTab1RightDisabled,
+				MailFrameTab2Left,
+				MailFrameTab2LeftDisabled,
+				MailFrameTab2Middle,
+				MailFrameTab2MiddleDisabled,
+				MailFrameTab2Right,
+			MailFrameTab2RightDisabled,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+			-- TradeFrame
+			for i, v in pairs({ 
+				TradeFrameTopBorder,
+				TradeFrameTopLeftCorner,
+				TradeFrameTopRightCorner,
+				TradeFrameBotLeftCorner,
+				TradeFrameBotRightCorner,
+				TradeFrameLeftBorder,
+				TradeFrameRightBorder,
+				TradeFrameBottomBorder,
+				TradeFrameBtnCornerLeft,
+				TradeFrameBtnCornerRight,
+				TradeFramePlayerPortrait,
+				TradeFrameRecipientPortrait,
+			 }) do
+				if AbyssUIAddonSettings ~= nil then
+					AbyssUI_ColorizationFrameFunction(v)
+				end
+			end
+		-- End
+		else
+			return nil
+		end
+	end		
+end)
+---------------------------- Classic Functions ----------------------------------
+-- KeyBindingFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_BindingUI" and GetWoWVersion == 20502 and GetWoWVersion >= 12000 then
+		for i, v in pairs({
+			KeyBindingFrame.BottomEdge,
+			KeyBindingFrame.BottomLeftCorner,
+			KeyBindingFrame.BottomRightCorner,
+			KeyBindingFrame.Center,
+			KeyBindingFrame.LeftEdge,
+			KeyBindingFrame.RightEdge,
+			KeyBindingFrame.TopEdge,
+			KeyBindingFrame.TopLeftCorner,
+			KeyBindingFrame.TopRightCorner,
+			KeyBindingFrameHeader, }) do
+			if AbyssUIAddonSettings ~= nil then
+				AbyssUI_ColorizationFrameFunction(v)
+			else
+				return nil
+			end
+		end
+	end
+end)
+-- MacroFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_MacroUI" and GetWoWVersion <= 30600 then
+		for i, v in pairs({
+			MacroFramePortraitFrame,
+			MacroFrameTopBorder,
+			MacroFrameTopLeftCorner,
+			MacroFrameTopRightCorner,
+			MacroFrameBotLeftCorner,
+			MacroFrameBotRightCorner,
+			MacroFrameLeftBorder,
+			MacroFrameRightBorder,
+			MacroFrameBottomBorder,
+			MacroFrameButtonBottomBorder,
+			MacroFrameBtnCornerLeft,
+			MacroFrameBtnCornerRight, }) do
+			if AbyssUIAddonSettings ~= nil then
+				AbyssUI_ColorizationFrameFunction(v)
+			else
+				return nil
+			end
+		end
+	end
+end)
+-- TimeManagerFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_TimeManager" and GetWoWVersion <= 30600 then
+		for i, v in pairs({
+			TimeManagerFrameTopBorder,
+			TimeManagerFrameTopLeftCorner,
+			TimeManagerFrameTopRightCorner,
+			TimeManagerFrameBotLeftCorner,
+			TimeManagerFrameBotRightCorner,
+			TimeManagerFrameLeftBorder,
+			TimeManagerFrameRightBorder,
+			TimeManagerFrameBottomBorder,
+			TimeManagerFrameButtonBottomBorder,
+			TimeManagerFrameBtnCornerLeft,
+			TimeManagerFrameBtnCornerRight,
+			TimeManagerFramePortraitFrame, }) do
+			if AbyssUIAddonSettings ~= nil then
+				AbyssUI_ColorizationFrameFunction(v)
+			else
+				return nil
+			end
+		end
+	end
+end)
+-- AuctionFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_AuctionUI" and GetWoWVersion <= 30600 then
+		for i, v in pairs({
+			AuctionFrameBot,
+			AuctionFrameBotLeft,
+			AuctionFrameBotRight,
+			AuctionFrameTop,
+			AuctionFrameTopLeft,
+			AuctionFrameTopRight,
+			AuctionFrameTab1Left,
+			AuctionFrameTab1LeftDisabled,
+			AuctionFrameTab1Middle,
+			AuctionFrameTab1MiddleDisabled,
+			AuctionFrameTab1Right,
+			AuctionFrameTab1RightDisabled,
+			AuctionFrameTab2Left,
+			AuctionFrameTab2LeftDisabled,
+			AuctionFrameTab2Middle,
+			AuctionFrameTab2MiddleDisabled,
+			AuctionFrameTab2Right,
+			AuctionFrameTab2RightDisabled,
+			AuctionFrameTab3Left,
+			AuctionFrameTab3LeftDisabled,
+			AuctionFrameTab3Middle,
+			AuctionFrameTab3MiddleDisabled,
+			AuctionFrameTab3Right,
+			AuctionFrameTab3RightDisabled, }) do
+			if AbyssUIAddonSettings ~= nil then
+				AbyssUI_ColorizationFrameFunction(v)
+			else
+				return nil
+			end
+		end
+	end
+end)
+-- PlayerTalentFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_TalentUI" and GetWoWVersion == 20502 and GetWoWVersion >= 12000 then
+		self:UnregisterAllEvents()
+    local ChildRegions = { PlayerTalentFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+    for i, v in pairs({ 
+    	PlayerTalentFrameTab1Left,
+			PlayerTalentFrameTab1LeftDisabled,
+			PlayerTalentFrameTab1Middle,
+			PlayerTalentFrameTab1MiddleDisabled,
+			PlayerTalentFrameTab1Right,
+			PlayerTalentFrameTab1RightDisabled,
+			PlayerTalentFrameTab2Left,
+			PlayerTalentFrameTab2LeftDisabled,
+			PlayerTalentFrameTab2Middle,
+			PlayerTalentFrameTab2MiddleDisabled,
+			PlayerTalentFrameTab2Right,
+			PlayerTalentFrameTab2RightDisabled,
+			PlayerTalentFrameTab3Left,
+			PlayerTalentFrameTab3LeftDisabled,
+			PlayerTalentFrameTab3Middle,
+			PlayerTalentFrameTab32MiddleDisabled,
+			PlayerTalentFrameTab3Right,
+			PlayerTalentFrameTab3RightDisabled,	}) do
+			AbyssUI_ColorizationFrameFunction(v)
+    end
+	end
+end)
+-- ClassTrainerFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_TrainerUI" and GetWoWVersion == 20502 and GetWoWVersion >= 12000 then
+		self:UnregisterAllEvents()
+    local ChildRegions = { ClassTrainerFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+	end
+end)
+-- PaperDollFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { PaperDollFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- ReputationFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { ReputationFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- SkillFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { SkillFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- PVPFrame
+--[[
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 and GetWoWVersion >= 12000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { PVPFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+--]]
+-- HonorFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion ~= 20502 and GetWoWVersion <= 12000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { HonorFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- SpellBookFrame
+--[[
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { SpellBookFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+    for i, v in pairs({
+    	SpellButton1SubSpellName,
+    	SpellButton2SubSpellName,
+    	SpellButton3SubSpellName,
+    	SpellButton4SubSpellName,
+    	SpellButton5SubSpellName,
+    	SpellButton6SubSpellName,
+    	SpellButton7SubSpellName,
+    	SpellButton8SubSpellName,
+    	SpellButton9SubSpellName,
+    	SpellButton10SubSpellName,
+    	SpellButton11SubSpellName,
+    	SpellButton12SubSpellName,
+    }) do
+    	v:SetVertexColor(219/255, 222/255, 231/255)
+    end
+  end
+end)
+--]]
+-- QuestLogFrame
+--[[
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+		if (AbyssUIAddonSettings.ExtraFunctionDisableQuestFrame ~= true) then
+	    self:UnregisterAllEvents()
+	    local ChildRegions = { QuestLogFrame:GetRegions(), QuestFrameDetailPanel:GetRegions() }
+	    local fs = {}
+	    for k, v in pairs(ChildRegions) do
+	    	AbyssUI_ColorizationFrameFunction(v)
+	    end
+	    for i, v in pairs({ 
+	    	QuestLogQuestTitle,
+	    	QuestLogObjective1,
+	    	QuestLogObjective2,
+	    	QuestLogObjectivesText,
+	    	QuestLogDescriptionTitle,
+	    	QuestLogQuestDescription,
+	    }) do
+	    	v:SetVertexColor(219/255, 222/255, 231/255)
+	    end
+	  end
+  end
+end)
+--]]
+--[[
+-- QuestFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 and GetWoWVersion >= 12000 then
+		if (AbyssUIAddonSettings.ExtraFunctionDisableQuestFrame ~= true) then
+	    self:UnregisterAllEvents()
+	    local ChildRegions = { 
+	    	QuestFrame:GetRegions(), 
+	    	QuestLogDetailFrame:GetRegions(),
+	  		QuestFrameProgressPanel:GetRegions(),
+	  		QuestFrameRewardPanel:GetRegions()
+	  	}
+	    local ScrollRegions = { 
+	    	QuestDetailScrollFrame:GetRegions(),
+	     	QuestDetailScrollChildFrame:GetRegions(), 
+	    	QuestLogDetailScrollFrame:GetRegions(), 
+	     	QuestLogDetailScrollChildFrame:GetRegions(), 
+	     	QuestRewardScrollFrame:GetRegions(), 
+	     	QuestRewardScrollChildFrame:GetRegions(), 
+	   		QuestInfoRewardsFrame:GetRegions(),
+	   		QuestProgressTitleText,
+	   		QuestProgressText,
+	   		QuestInfoRewardText,
+	    }
+	    local fs = {}
+	    for k, v in pairs(ChildRegions) do
+	    	AbyssUI_ColorizationFrameFunction(v)
+	    end
+	    for k, v in pairs(ScrollRegions) do
+	    	v:SetVertexColor(219/255, 222/255, 231/255)
+	    end
+  	end
+  end
+end)
+--]]
+--[[
+-- GossipFrameGreetingPanel
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { GossipFrameGreetingPanel:GetRegions() }
+    local ScrollRegions = { 
+    	GossipGreetingScrollFrame:GetRegions(), 
+     	GossipGreetingScrollChildFrame:GetRegions(),  }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+    for k, v in pairs(ScrollRegions) do
+    	v:SetVertexColor(219/255, 222/255, 231/255)
+    end
+  end
+end)
+--]]
+-- BankFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { BankFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+    for i, v in pairs({
+	    BankFrameTab1Left,
+			BankFrameTab1LeftDisabled,
+			BankFrameTab1Middle,
+			BankFrameTab1MiddleDisabled,
+			BankFrameTab1Right,
+			BankFrameTab1RightDisabled,
+			BankFrameTab2Left,
+			BankFrameTab2LeftDisabled,
+			BankFrameTab2Middle,
+			BankFrameTab2MiddleDisabled,
+			BankFrameTab2Right,
+			BankFrameTab2RightDisabled, 
+	 	}) do
+	 		AbyssUI_ColorizationFrameFunction(v)
+		end
+  end
+end)
+-- TaxiFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { TaxiFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- TabardFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { TabardFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- WorldMapFrame.BorderFrame
+local leatrix = IsAddOnLoaded("Leatrix_Maps")
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 then
+		if (not leatrix) then
+	    self:UnregisterAllEvents()
+	    local ChildRegions = { WorldMapFrame.BorderFrame:GetRegions() }
+	    local fs = {}
+	    for k, v in pairs(ChildRegions) do
+	    	AbyssUI_ColorizationFrameFunction(v)
+	    end
+	  end
+  end
+end)
+-- LFGParentFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 20600 and GetWoWVersion >= 12000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { LFGParentFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+   	for i, v in pairs({
+	    LFGParentFrameTab1Left,
+			LFGParentFrameTab1LeftDisabled,
+			LFGParentFrameTab1Middle,
+			LFGParentFrameTab1MiddleDisabled,
+			LFGParentFrameTab1Right,
+			LFGParentFrameTab1RightDisabled,
+			LFGParentFrameTab2Left,
+			LFGParentFrameTab2LeftDisabled,
+			LFGParentFrameTab2Middle,
+			LFGParentFrameTab2MiddleDisabled,
+			LFGParentFrameTab2Right,
+			LFGParentFrameTab2RightDisabled, 
+	 	}) do
+	 		AbyssUI_ColorizationFrameFunction(v)
+		end
+  end
+end)
+-- ArenaFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion >= 20502 and GetWoWVersion < 90000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { ArenaFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- InterfaceOptionsFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 12000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { InterfaceOptionsFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- VideoOptionsFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 12000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { VideoOptionsFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- HonorFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30000 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { HonorFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- PlayerTalentFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_InspectUI" and GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { InspectPaperDollFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+	end
+end)
+---------------------------- Classic Dynamically ----------------------------------
+-- Clock
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self, event, name)
+	if GetWoWVersion <= 30600 then
+		loaded = IsAddOnLoaded("Blizzard_TimeManager")
+		if not loaded then
+			LoadAddOn('Blizzard_TimeManager')
+		end
+		local showclock = true
+		if (showclock and not AbyssUIAddonSettings.ExtraFunctionMinimapClock) then
+			local clockFrame, clockTime = TimeManagerClockButton:GetRegions()
+			clockFrame:Hide()
+			clockTime:Show()
+			TimeManagerClockButton:SetPoint("BOTTOM", Minimap, 0, -6)
+			TimeManagerClockButton:SetAlpha(0)
+		elseif (showclock and AbyssUIAddonSettings.ExtraFunctionMinimapClock) then
+			LoadAddOn('Blizzard_TimeManager')
+			local clockFrame, clockTime = TimeManagerClockButton:GetRegions()
+			clockFrame:Hide()
+			clockTime:Show()
+			clockTime:SetFont(damageFont, 12, "THINOUTLINE")
+			TimeManagerClockButton:SetPoint("BOTTOM", Minimap, 0, -6)
+			TimeManagerClockButton:SetAlpha(1)
+		else
+			TimeManagerClockButton.Show = TimeManagerClockButton.Hide
+			local region = TimeManagerClockButton:GetRegions()
+			region:Hide()	
+			TimeManagerClockButton:ClearAllPoints()	
+			TimeManagerClockButton:Hide()	
+		end
+		-- Clock/Calendar Handler
+		Minimap:HookScript("OnEnter", function()
+		  TimeManagerClockButton:SetAlpha(1)
+		end)
+		Minimap:HookScript("OnLeave", function()
+			if not AbyssUIAddonSettings.ExtraFunctionMinimapClock then
+		  	TimeManagerClockButton:SetAlpha(0)
+			end
+		end)
+	end
+end)
+-- KeyBindingFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_BindingUI" and GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { KeyBindingFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+	end
+end)
+-- PlayerTalentFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_TalentUI" and GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { PlayerTalentFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+	end
+end)
+--[[
+local function ChatHiderFunc()
+	-- Chat Hide Frame (needs to be here so the hide chat buttons works on this too)
+	-- Thanks to Syncrow for part of this 
+	local ChatHideFrame = CreateFrame("Button", "$parentChatHideFrame", UIParent)
+	ChatHideFrame:SetSize(30, 30)
+	ChatHideFrame.t = ChatHideFrame:CreateTexture(nil, "BORDER")
+	ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Minimize-Up.blp")
+	ChatHideFrame.t:SetAllPoints(ChatHideFrame)
+	ChatHideFrame:SetPoint("BOTTOM","ChatFrame1ButtonFrame","BOTTOM", 0, -35)
+	if ( AbyssUIAddonSettings.FadeUI ~= true ) then
+	  ChatHideFrame:Show()
+	else
+	  ChatHideFrame:Hide()
+	end
+
+	local ChatHide = false
+	ChatHideFrame:SetScript("OnMouseDown", function(self, Button)
+	  if ChatHide == false then
+	    if Button == "LeftButton" then
+	      ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Minimize-Down.blp")
+	    end
+	  elseif ChatHide == true then
+	    if Button == "LeftButton" then
+	      ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Maximize-Down.blp")
+	    end
+	  end
+	end)
+
+	ChatHideFrame:SetScript("OnMouseUp", function(self, Button)
+	  if ChatHide == false then
+	    if Button == "LeftButton" then
+	      ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Minimize-Up.blp")
+	    end
+	  elseif ChatHide == true then
+	    if Button == "LeftButton" then
+	      ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Maximize-Up.blp")
+	    end
+	  end
+	end)
+
+	ChatHideFrame:SetScript("OnClick", function(self, Button)
+	  if ChatHide == false then
+	    ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Maximize-Up.blp")
+	    GeneralDockManager:Hide()
+	    ChatFrameMenuButton:Hide()
+	    ChatFrameChannelButton:Hide()
+	    ChatFrame1EditBox:Hide()
+	    if GetWoWVersion > 30600 then
+	  		QuickJoinToastButton:Hide()
+				ChatFrameToggleVoiceDeafenButton.Icon:Hide()
+	    	ChatFrameToggleVoiceMuteButton.Icon:Hide()
+	    end
+
+	    for i = 1, NUM_CHAT_WINDOWS do
+	      _G["ChatFrame"..i..""]:SetAlpha(0)
+	      _G["ChatFrame"..i.."ButtonFrame"]:Hide()
+	      _G["ChatFrame"..i.."EditBox"]:SetAlpha(0)
+	    end
+	    ChatHide = true
+	  elseif ChatHide == true then
+	    ChatHideFrame.t:SetTexture("Interface\\CHATFRAME\\UI-ChatIcon-Minimize-Up.blp")
+	    GeneralDockManager:Show()
+	    ChatFrameMenuButton:Show()
+	    ChatFrameChannelButton:Show()
+	    ChatFrame1EditBox:Show()
+	    if GetWoWVersion > 30600 then
+	  		QuickJoinToastButton:Show()
+				ChatFrameToggleVoiceDeafenButton.Icon:Show()
+	    	ChatFrameToggleVoiceMuteButton.Icon:Show()
+	    end
+
+	    for i = 1 , NUM_CHAT_WINDOWS do
+	      _G["ChatFrame"..i..""]:SetAlpha(1)
+	      _G["ChatFrame"..i.."ButtonFrame"]:Show()
+	      _G["ChatFrame"..i.."EditBox"]:SetAlpha(1)
+	    end
+	    ChatHide = false
+	  end
+	end)
+end
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	ChatHiderFunc()
+end)
+--]]
+---------------------------- LichKing Classic Modules ----------------------------------
+-- GlyphFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+	if name == "Blizzard_GlyphUI" and GetWoWVersion <= 30600 then
+    self:UnregisterAllEvents()
+    local ChildRegions = { GlyphFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+	end
+end)
+-- PetPaperDollFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 and GetWoWVersion >= 30000  then
+    self:UnregisterAllEvents()
+    local ChildRegions = { PetPaperDollFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+-- LFGFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 and GetWoWVersion >= 12000 then
+    local ChildRegions = { LFGListingFrame:GetRegions(), LFGBrowseFrame:GetRegions(), }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+    for i, v in pairs({
+    	LFGListingFrameFrameBackgroundTop,
+			LFGListingFrameFrameBackgroundBottom,
+    }) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+--[[
+-- GameTimeFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self)
+	if GetWoWVersion <= 30600 and GetWoWVersion >= 30000  then
+    self:UnregisterAllEvents()
+    local ChildRegions = { GameTimeFrame:GetRegions() }
+    local fs = {}
+    for k, v in pairs(ChildRegions) do
+    	AbyssUI_ColorizationFrameFunction(v)
+    end
+  end
+end)
+--]]
 ---------------------------- NewUI Frames ----------------------------------
 local ClassicFrames = CreateFrame("Frame")
 ClassicFrames:RegisterEvent("ADDON_LOADED")
@@ -3254,6 +4425,7 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
                     AbyssUI_ColorizationFrameFunction(v)
                 end
             end
+            --[[
             -- ProfessionsFrame
             for i, v in pairs({ 
                 ProfessionsFrame.NineSlice.TopEdge,
@@ -3287,6 +4459,7 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
                     AbyssUI_ColorizationFrameFunction(v)
                 end
             end
+            --]]
             -- Bags
             for i, v in pairs({ 
                 ContainerFrame1.NineSlice,
@@ -3346,7 +4519,46 @@ f:SetScript("OnEvent", function(self, event, name)
     end
   end
 end)
-
+-- ProfessionsFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+  if name == "Blizzard_Professions" and GetWoWVersion >= 90500 then
+    for i, v in pairs({ 
+        ProfessionsFrame.NineSlice.TopEdge,
+        ProfessionsFrame.NineSlice.RightEdge,
+        ProfessionsFrame.NineSlice.BottomEdge,
+        ProfessionsFrame.NineSlice.LeftEdge,
+        ProfessionsFrame.NineSlice.TopRightCorner,
+        ProfessionsFrame.NineSlice.TopLeftCorner,
+        ProfessionsFrame.NineSlice.BottomLeftCorner,
+        ProfessionsFrame.NineSlice.BottomRightCorner,
+        ProfessionsFrame.CraftingPage.RankBar.Border,
+        ProfessionsFrame.CraftingPage.SchematicForm.OutputIcon.IconBorder,
+        DropDownList1MenuBackdrop.NineSlice.TopEdge,
+        DropDownList1MenuBackdrop.NineSlice.RightEdge,
+        DropDownList1MenuBackdrop.NineSlice.BottomEdge,
+        DropDownList1MenuBackdrop.NineSlice.LeftEdge,
+        DropDownList1MenuBackdrop.NineSlice.TopRightCorner,
+        DropDownList1MenuBackdrop.NineSlice.TopLeftCorner,
+        DropDownList1MenuBackdrop.NineSlice.BottomLeftCorner,
+        DropDownList1MenuBackdrop.NineSlice.BottomRightCorner,
+        DropDownList2MenuBackdrop.NineSlice.TopEdge,
+        DropDownList2MenuBackdrop.NineSlice.RightEdge,
+        DropDownList2MenuBackdrop.NineSlice.BottomEdge,
+        DropDownList2MenuBackdrop.NineSlice.LeftEdge,
+        DropDownList2MenuBackdrop.NineSlice.TopRightCorner,
+        DropDownList2MenuBackdrop.NineSlice.TopLeftCorner,
+        DropDownList2MenuBackdrop.NineSlice.BottomLeftCorner,
+    DropDownList2MenuBackdrop.NineSlice.BottomRightCorner,
+     }) do
+      if AbyssUIAddonSettings ~= nil then
+        AbyssUI_ColorizationFrameFunction(v)
+      end
+    end
+  end
+end)
+-- End
 -- Init
 local f = CreateFrame("Frame")
 f:SetSize(50, 50)
