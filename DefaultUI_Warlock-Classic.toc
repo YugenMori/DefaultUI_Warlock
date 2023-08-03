@@ -1,6 +1,6 @@
 ## Interface: 11404
-## Title: DefaultUI_Warlock
-## Version: 10.1.5.1_Classic_Dragonflight
+## Title: DefaultUI_|cff8788EEWarlock|r
+## Version: 10.1.5.2_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-deDE: Minimalistische Benutzeroberfläche für World of Warcraft
 ## Notes-enGB: Minimalist UI for World of Warcraft
@@ -17,7 +17,7 @@
 ## SavedVariables: AbyssuiDB
 ## SavedVariablesPerCharacter: AbyssUIProfile, AbyssUIAddonSettings, COLOR_MY_UI
 ## OptionalDeps: AbyssUI_TexturePack, Ace3
-
+## IconTexture: Interface\AddOns\DefaultUI_Warlock\textures\extra\logo\defaultuiwarlock
 # Wow Versions: Classic - 11404 | LichKingClassic - 30402 | DragonFlight - 100105
 
 # Libs
