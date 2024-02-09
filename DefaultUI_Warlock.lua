@@ -3219,6 +3219,22 @@ ClassicFrames:SetScript("OnEvent", function(self, event, addon)
 					end
 				end
 			end
+			-- SettingsPanel
+      for i, v in pairs({ 
+          SettingsPanel.NineSlice.RightEdge,
+          SettingsPanel.NineSlice.LeftEdge,
+          SettingsPanel.NineSlice.TopEdge,
+          SettingsPanel.NineSlice.BottomEdge,
+          SettingsPanel.NineSlice.PortraitFrame,
+          SettingsPanel.NineSlice.TopRightCorner,
+          SettingsPanel.NineSlice.TopLeftCorner,
+          SettingsPanel.NineSlice.BottomLeftCorner,
+          SettingsPanel.NineSlice.BottomRightCorner,
+       }) do
+          if AbyssUIAddonSettings ~= nil then
+            AbyssUI_ColorizationFrameFunction(v)
+          end
+      end
 			-- HelpFrame
 			for i, v in pairs({ 
 				HelpFrameTopBorder,
