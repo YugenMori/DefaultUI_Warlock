@@ -480,17 +480,7 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				TokenFramePopup.Border.TopRightCorner,
 				TokenFramePopup.Border.TopLeftCorner,
 				TokenFramePopup.Border.BottomLeftCorner,
-				TokenFramePopup.Border.BottomRightCorner,
-				ReputationDetailFrame.Border.TopEdge,
-				ReputationDetailFrame.Border.RightEdge,
-				ReputationDetailFrame.Border.BottomEdge,
-				ReputationDetailFrame.Border.LeftEdge,
-				ReputationDetailFrame.Border.TopRightCorner,
-				ReputationDetailFrame.Border.TopLeftCorner,
-				ReputationDetailFrame.Border.BottomLeftCorner,
-				ReputationDetailFrame.Border.BottomRightCorner,
-				ReputationDetailCorner,
-			ReputationDetailDivider, }) do
+				TokenFramePopup.Border.BottomRightCorner, }) do
 				if AbyssUIAddonSettings ~= nil then
 					AbyssUI_ColorizationFrameFunction(v)
 					for i, v in pairs({
@@ -508,17 +498,18 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				end
 			end
 			-- SpellBook
+			--[[
 			for i, v in pairs({ 
-				SpellBookFrame.NineSlice.TopEdge,
-				SpellBookFrame.NineSlice.RightEdge,
-				SpellBookFrame.NineSlice.LeftEdge,
-				SpellBookFrame.NineSlice.TopEdge,
-				SpellBookFrame.NineSlice.BottomEdge,
-				SpellBookFrame.NineSlice.PortraitFrame,
-				SpellBookFrame.NineSlice.TopRightCorner,
-				SpellBookFrame.NineSlice.TopLeftCorner,
-				SpellBookFrame.NineSlice.BottomLeftCorner,
-				SpellBookFrame.NineSlice.BottomRightCorner,
+				PlayerSpellsFrame.NineSlice.TopEdge,
+				PlayerSpellsFrame.NineSlice.RightEdge,
+				PlayerSpellsFrame.NineSlice.LeftEdge,
+				PlayerSpellsFrame.NineSlice.TopEdge,
+				PlayerSpellsFrame.NineSlice.BottomEdge,
+				PlayerSpellsFrame.NineSlice.PortraitFrame,
+				PlayerSpellsFrame.NineSlice.TopRightCorner,
+				PlayerSpellsFrame.NineSlice.TopLeftCorner,
+				PlayerSpellsFrame.NineSlice.BottomLeftCorner,
+				PlayerSpellsFrame.NineSlice.BottomRightCorner,
 				SpellBookFrameTabButton1Left,
 				SpellBookFrameTabButton1LeftDisabled,
 				SpellBookFrameTabButton1Middle,
@@ -542,7 +533,7 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				else
 					return nil
 				end
-			end
+			end --]]
 			-- PvE/Pvp
 			for i, v in pairs({ 
 				PVEFrame.NineSlice.TopEdge,
@@ -1870,6 +1861,7 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				end
 			end
 			-- WardrobeOutfitFrame
+			--[[
 			for i, v in pairs({
 				WardrobeOutfitFrame.Border.TopEdge,
 				WardrobeOutfitFrame.Border.RightEdge,
@@ -1884,7 +1876,7 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 				else
 					return nil
 				end
-			end
+			end--]]
 			-- QuestSessionManager.CheckStopDialog
 			for i, v in pairs({
 				QuestSessionManager.CheckStopDialog.Border.TopEdge,
@@ -4568,6 +4560,29 @@ f:SetScript("OnEvent", function(self, event, name)
       ClassTalentFrame.NineSlice.TopLeftCorner,
       ClassTalentFrame.NineSlice.BottomLeftCorner,
       ClassTalentFrame.NineSlice.BottomRightCorner,
+     }) do
+      if AbyssUIAddonSettings ~= nil then
+        AbyssUI_ColorizationFrameFunction(v)
+      end
+    end
+  end
+end)
+-- PlayerSpellsFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+  if name == "Blizzard_PlayerSpells" and GetWoWVersion >= 90500 then
+    for i, v in pairs({ 
+				PlayerSpellsFrame.NineSlice.TopEdge,
+				PlayerSpellsFrame.NineSlice.RightEdge,
+				PlayerSpellsFrame.NineSlice.LeftEdge,
+				PlayerSpellsFrame.NineSlice.TopEdge,
+				PlayerSpellsFrame.NineSlice.BottomEdge,
+				PlayerSpellsFrame.NineSlice.PortraitFrame,
+				PlayerSpellsFrame.NineSlice.TopRightCorner,
+				PlayerSpellsFrame.NineSlice.TopLeftCorner,
+				PlayerSpellsFrame.NineSlice.BottomLeftCorner,
+				PlayerSpellsFrame.NineSlice.BottomRightCorner,
      }) do
       if AbyssUIAddonSettings ~= nil then
         AbyssUI_ColorizationFrameFunction(v)
