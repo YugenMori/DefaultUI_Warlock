@@ -10,8 +10,6 @@
 local addonName, addonTable = ...
 local L = LibStub("AceLocale-3.0"):GetLocale("DefaultUI_Warlock")
 local GetWoWVersion = ((select(4, GetBuildInfo())))
---local texturepackCheck    = "1.0.1.7"
---local texturepackDate     = "26/11/20"
 local f = CreateFrame("Frame", "DefaultUI_Warlock_Config", UIParent)
 f:SetSize(50, 50)
 f:RegisterEvent("PLAYER_LOGIN")
@@ -497,43 +495,6 @@ NewFrames:SetScript("OnEvent", function(self, event, addon)
 					return nil
 				end
 			end
-			-- SpellBook
-			--[[
-			for i, v in pairs({ 
-				PlayerSpellsFrame.NineSlice.TopEdge,
-				PlayerSpellsFrame.NineSlice.RightEdge,
-				PlayerSpellsFrame.NineSlice.LeftEdge,
-				PlayerSpellsFrame.NineSlice.TopEdge,
-				PlayerSpellsFrame.NineSlice.BottomEdge,
-				PlayerSpellsFrame.NineSlice.PortraitFrame,
-				PlayerSpellsFrame.NineSlice.TopRightCorner,
-				PlayerSpellsFrame.NineSlice.TopLeftCorner,
-				PlayerSpellsFrame.NineSlice.BottomLeftCorner,
-				PlayerSpellsFrame.NineSlice.BottomRightCorner,
-				SpellBookFrameTabButton1Left,
-				SpellBookFrameTabButton1LeftDisabled,
-				SpellBookFrameTabButton1Middle,
-				SpellBookFrameTabButton1MiddleDisabled,
-				SpellBookFrameTabButton1Right,
-				SpellBookFrameTabButton1RightDisabled,
-				SpellBookFrameTabButton2Left,
-				SpellBookFrameTabButton2LeftDisabled,
-				SpellBookFrameTabButton2Middle,
-				SpellBookFrameTabButton2MiddleDisabled,
-				SpellBookFrameTabButton2Right,
-			SpellBookFrameTabButton2RightDisabled, }) do
-				if AbyssUIAddonSettings ~= nil then
-					AbyssUI_ColorizationFrameFunction(v)
-					for i, v in pairs({
-						SpellBookFrameInset.NineSlice.BottomLeftCorner,
-						SpellBookFrameInset.NineSlice.BottomRightCorner,
-					SpellBookFrameInset.NineSlice.BottomEdge, }) do
-						v:SetAlpha(0)
-					end
-				else
-					return nil
-				end
-			end --]]
 			-- PvE/Pvp
 			for i, v in pairs({ 
 				PVEFrame.NineSlice.TopEdge,
@@ -4042,7 +4003,7 @@ f:SetScript("OnEvent", function(self)
   end
 end)
 -- WorldMapFrame.BorderFrame
-local leatrix = IsAddOnLoaded("Leatrix_Maps")
+local leatrix = C_AddOns.IsAddOnLoaded("Leatrix_Maps")
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self)
@@ -4174,7 +4135,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event, name)
 	if GetWoWVersion <= 50600 then
-		loaded = IsAddOnLoaded("Blizzard_TimeManager")
+		loaded = C_AddOns.IsAddOnLoaded("Blizzard_TimeManager")
 		if not loaded then
 			LoadAddOn('Blizzard_TimeManager')
 		end
@@ -4590,6 +4551,27 @@ f:SetScript("OnEvent", function(self, event, name)
     end
   end
 end)
+-- ProfessionsBookFrame
+local f = CreateFrame("Frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, name)
+  if name == "Blizzard_ProfessionsBook" and GetWoWVersion >= 90500 then
+    for i, v in pairs({ 
+        ProfessionsBookFrame.NineSlice.TopEdge,
+        ProfessionsBookFrame.NineSlice.RightEdge,
+        ProfessionsBookFrame.NineSlice.BottomEdge,
+        ProfessionsBookFrame.NineSlice.LeftEdge,
+        ProfessionsBookFrame.NineSlice.TopRightCorner,
+        ProfessionsBookFrame.NineSlice.TopLeftCorner,
+        ProfessionsBookFrame.NineSlice.BottomLeftCorner,
+        ProfessionsBookFrame.NineSlice.BottomRightCorner,
+     }) do
+      if AbyssUIAddonSettings ~= nil then
+        AbyssUI_ColorizationFrameFunction(v)
+      end
+    end
+  end
+end)
 -- ProfessionsFrame
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
@@ -4621,8 +4603,7 @@ f:SetScript("OnEvent", function(self, event, name)
         DropDownList2MenuBackdrop.NineSlice.TopRightCorner,
         DropDownList2MenuBackdrop.NineSlice.TopLeftCorner,
         DropDownList2MenuBackdrop.NineSlice.BottomLeftCorner,
-    DropDownList2MenuBackdrop.NineSlice.BottomRightCorner,
-     }) do
+    DropDownList2MenuBackdrop.NineSlice.BottomRightCorner, }) do
       if AbyssUIAddonSettings ~= nil then
         AbyssUI_ColorizationFrameFunction(v)
       end
